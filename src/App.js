@@ -1,23 +1,25 @@
-import logo from './logo.svg';
 import './App.css';
+import useStorage from './hooks/storage';
+import { useState } from 'react';
 
 function App() {
+  const { data, deleteName } = useStorage({
+    initData: ["Huyen", "Hoa", "Hung", "Long"]
+  })
+  const [name, setName] = useState("");
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <div>学生一覧: [{data}]</div>
+      <div>削除してください</div>
+      <div>削除したい名前:
+        <input type="text" value={name} onChange={(e) => setName(e.target.value)}></input>
+        <button type="button" onClick={() => deleteName(name)}>
+        確定
+        </button>
+      </div>
+      <div>削除したい名前: {name}</div>
+
+      <div>新しい一覧: {data}</div>
     </div>
   );
 }
